@@ -48,6 +48,30 @@ public interface CredentialPojoService {
     ResponseData<CredentialPojo> createCredential(CreateCredentialPojoArgs args);
 
     /**
+     *
+     * @param CredentialTemplate CredentialTemplate is converted from CPT.
+     * @param TemplatePublicKey
+     * @param CredentialInfo
+     * @return a credential which contains credentialSignatureRequest and nonceCredential(new
+     * defined CPT)
+     */
+    ResponseData<CredentialPojo> prepareZKPCredential();
+
+    /**
+     * call this function to create a ZKP credential.
+     *
+     * @param credentialTemplate is converted from CPT.
+     * @param templateSecretKey
+     * @param CredentialPojo pass a credential which contains credentialSignatureRequest and
+     * nonceCredential
+     * @param userWeId use user's WeID as proverId in the function
+     *
+     * @return
+     */
+    ResponseData<CredentialPojo> createCredential();
+
+    /**
+     * @deprecated As of release 2.0
      * Generate a selective disclosure credential with specified claim policy.
      *
      * @param credential the credential

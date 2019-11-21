@@ -20,12 +20,14 @@
 package com.webank.weid.rpc;
 
 import com.webank.weid.protocol.amop.GetEncryptKeyArgs;
+import com.webank.weid.protocol.base.CredentialPojo;
 import com.webank.weid.protocol.base.PolicyAndChallenge;
 import com.webank.weid.protocol.response.AmopResponse;
 import com.webank.weid.protocol.response.GetEncryptKeyResponse;
 import com.webank.weid.protocol.response.ResponseData;
 import com.webank.weid.rpc.callback.AmopCallback;
 import com.webank.weid.service.impl.base.AmopCommonArgs;
+import com.webank.weid.suite.api.transportation.inf.JsonTransportation;
 
 /**
  * Created by Junqi Zhang on 2019/4/10.
@@ -45,5 +47,20 @@ public interface AmopService {
     ResponseData<GetEncryptKeyResponse> getEncryptKey(
         String toOrgId,
         GetEncryptKeyArgs args
+    );
+
+    /**
+     * User ask issuer to issue a new credential by passing corresponding Transportation.
+     *
+     * @param jsonTransportation one of the credentials in the Transportation contains
+     * CredentialInfo, credentialSignatureRequest and nonceCredential.
+     * @return ResponseData<CredentialPojo>
+     */
+    ResponseData<CredentialPojo> requestIssueCredential(
+        JsonTransportation jsonTransportation
+    );
+
+    ResponseData<Integer> requestVerify(
+        JsonTransportation jsonTransportation
     );
 }
